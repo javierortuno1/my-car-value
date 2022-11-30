@@ -9,12 +9,18 @@ describe('AuthService', () => {
     let fakeUsersService: Partial<UsersService>;
 
     beforeEach(async () => {
+        const users: User[] = [];
         // Fake copy of users service
         fakeUsersService = {
-            find: () => Promise.resolve([]),
+            find: (email: string) => {
+                const filteredUsers: User[] = users.filter(user => user.email == email)
+                return Promise.resolve(filteredUsers)
+            },
             create: (email: string, password: string) => {
                 // 'as User' as a way to indicate TS to treat the object as a UserObject. -> Casting
-                return Promise.resolve({ id: 1, email, password } as User)
+                const user = {id: Math.floor(Math.random() * 999999), email, password} as User;
+                users.push(user)
+                return Promise.resolve(user)
             }
         }
 
@@ -63,5 +69,20 @@ describe('AuthService', () => {
     it('throws if signin is called with an unused email', async () => {
         await expect(service.signin('asdflkj@asdlfkj.com', 'passdflkj'))
                 .rejects.toThrow(NotFoundException);
+    });
+
+    it('throws if an invalid password is provided', async () => {
+        fakeUsersService.find = () =>
+          Promise.resolve([
+            { email: 'asdf@asdf.com', password: 'laskdjf' } as User
+          ]);
+        await expect(service.signin('asdf@asdf.com', 'password'))
+                .rejects.toThrow(BadRequestException);
+    });
+
+    it('returns a user if correct password is provided', async() => {
+        await service.signup('a@a.com', 'password');
+        const user = await service.signin('a@a.com', 'password');
+        expect(user).toBeDefined()
     });
 })
