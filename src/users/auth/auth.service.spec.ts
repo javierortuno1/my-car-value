@@ -1,3 +1,4 @@
+import { BadRequestException } from "@nestjs/common";
 import { Test } from "@nestjs/testing"
 import { User } from "../user.entity";
 import { UsersService } from "../users.service";
@@ -5,10 +6,11 @@ import { AuthService } from "./auth.service"
 
 describe('AuthService', () => {
     let service: AuthService;
+    let fakeUsersService: Partial<UsersService>;
 
     beforeEach(async () => {
         // Fake copy of users service
-        const fakeUsersService: Partial<UsersService> = {
+        fakeUsersService = {
             find: () => Promise.resolve([]),
             create: (email: string, password: string) => {
                 // 'as User' as a way to indicate TS to treat the object as a UserObject. -> Casting
@@ -48,4 +50,13 @@ describe('AuthService', () => {
         expect(salt).toBeDefined();
         expect(hash).toBeDefined();
     })
+
+    it('throws an error if user signs up with email that is in use', async () => {
+        // Make the fakeUsersService find a fake user entity
+        fakeUsersService.find = () =>
+          Promise.resolve([{ id: 1, email: 'a@a.com', password: '1' } as User]);
+
+        await expect(service.signup('a@a.com', '1'))
+                .rejects.toThrow(BadRequestException);
+      });
 })

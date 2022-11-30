@@ -50,6 +50,8 @@ $ npm run start:prod
 ```bash
 # unit tests
 $ npm run test
+# One specific unit test
+$ npm run test:watch
 
 # e2e tests
 $ npm run test:e2e
