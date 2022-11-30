@@ -38,4 +38,14 @@ describe('AuthService', () => {
         // we validate that the service exist
         expect(service).toBeDefined();
     })
+
+    it('creates a new user with a salted and hashed password', async () => {
+        const user = await service.signup('dasda@dadas.com', '123456');
+
+        // Making sure that the password has been salted and hashed.
+        expect(user.password).not.toEqual('123456');
+        const [salt, hash] = user.password.split('.');
+        expect(salt).toBeDefined();
+        expect(hash).toBeDefined();
+    })
 })
