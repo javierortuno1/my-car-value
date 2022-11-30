@@ -52,6 +52,7 @@ $ npm run start:prod
 $ npm run test
 # One specific unit test
 $ npm run test:watch
+  Example: p -> auth.service.spec
 
 # e2e tests
 $ npm run test:e2e
