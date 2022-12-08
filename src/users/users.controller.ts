@@ -23,7 +23,7 @@ import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { User } from './user.entity';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -40,7 +40,7 @@ export class UsersController {
         //     console.log(session);
         //     session.color = color;
         // }
-    
+
         // @Get('/colors')
         // getColor(@Session() session: any) {
         //     console.log(session);
