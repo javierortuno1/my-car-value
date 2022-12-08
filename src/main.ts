@@ -3,11 +3,20 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 const cookieSession = require('cookie-session');
 import { AppModule } from './app.module';
-import { setupApp } from './setup-app';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  setupApp(app);
+
+  app.use(
+    cookieSession({
+      keys: ['qwertz']
+    }));
+  // Apply the pipe for any incomming request to the instance app
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true
+    })
+  );
 
   // Swagger
   const config = new DocumentBuilder()

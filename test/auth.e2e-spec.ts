@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { setupApp } from '../src/setup-app';
 
 describe('Authentication System', () => {
   let app: INestApplication;
@@ -13,8 +12,6 @@ describe('Authentication System', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    // It will have all the middlewares attached to it
-    setupApp(app);
     await app.init();
   });
 
