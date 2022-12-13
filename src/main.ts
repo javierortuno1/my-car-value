@@ -1,16 +1,12 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-const cookieSession = require('cookie-session');
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use(
-    cookieSession({
-      keys: ['qwertz']
-    }));
+  app.use();
   // Apply the pipe for any incomming request to the instance app
   app.useGlobalPipes(
     new ValidationPipe({
