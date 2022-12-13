@@ -5,6 +5,8 @@ import { ReportsController } from './reports.controller';
 import { ReportsService } from './reports.service';
 
 @Module({
+  // Connection to SQLite DB AppModule Should exist.
+  // Define the Reporsitory to TypeORM by sharing the entity
   imports: [TypeOrmModule.forFeature([Report])],
   controllers: [ReportsController],
   providers: [ReportsService]
