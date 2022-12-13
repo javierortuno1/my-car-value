@@ -28,11 +28,11 @@ describe('Authentication System', () => {
       })
   });
 
-  it('signup as a new uset then get the currently logged in user',async () => {
+  it('signup as a new user then get the currently logged in user', async () => {
     const email = "abcd@abcd.com"
 
     const res = await request(app.getHttpServer())
-      .post('auth/signup')
+      .post('/auth/signup')
       .send({ email, password: '123456'})
       .expect(201)
 
