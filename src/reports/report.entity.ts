@@ -6,13 +6,29 @@ export class Report {
     @PrimaryGeneratedColumn()
     id: number;
 
-    // @Column()
-    // make: string;
-
-    // @Column()
-    // model: string;
-
     @Column()
     price: number;
+
+    @Column()
+    make: string;
+
+    @Column()
+    model: string;
+
+    @Column()
+    year: number;
+
+    @Column()
+    mileage: number;
+
+    // ** Where was the car sold
+
+    // Longitude
+    @Column()
+    lng: number;
+
+    // Latitude
+    @Column()
+    lat: number;
 
 }
