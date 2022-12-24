@@ -6,14 +6,6 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use();
-  // Apply the pipe for any incomming request to the instance app
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true
-    })
-  );
-
   // Swagger
   const config = new DocumentBuilder()
     .setTitle('My Car Value Api')
