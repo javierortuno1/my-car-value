@@ -15,6 +15,9 @@ export class User {
     // @Exclude()
     password: string;
 
+    @Column({ default: true })
+    admin: boolean;
+
     // Pass as argument 1- the Entity we are expecting to be associated as function
     // for avoiding circular dependency
     // 2- and the instance of that entity with the property we wish to associate
