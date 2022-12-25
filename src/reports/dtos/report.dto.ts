@@ -1,7 +1,10 @@
 import { Expose, Transform } from "class-transformer";
 
 export class ReportDto {
+    @Expose()
     id: number;
+    @Expose()
+    approved: boolean;
     @Expose()
     price: number;
     @Expose()
