@@ -7,6 +7,10 @@ export class Report {
     @PrimaryGeneratedColumn()
     id: number;
 
+    // Column with an option for the property
+    @Column({ default: false })
+    approved: boolean;
+
     @Column()
     price: number;
 
