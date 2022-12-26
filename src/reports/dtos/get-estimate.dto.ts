@@ -7,6 +7,7 @@ export class GetEstimateDto {
         description: 'make',
         example: "Kia"
     })
+    @Transform(({ value }) => value.replace(/^[a-z]/, c => c.toUpperCase()))
     @IsString()
     make: string;
 
@@ -14,6 +15,7 @@ export class GetEstimateDto {
         description: 'model',
         example: "Optima"
     })
+    @Transform(({ value }) => value.replace(/^[a-z]/, c => c.toUpperCase()))
     @IsString()
     model: string;
 
