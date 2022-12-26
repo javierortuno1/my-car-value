@@ -91,8 +91,6 @@ export class UsersController {
         return user;
     }
 
-    
-
     // @UseInterceptors(new SerializeInterceptor(UserDto))
     // @Serialize(UserDto)
     @Get('/:id')

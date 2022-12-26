@@ -24,6 +24,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           type: 'sqlite',
           database: config.get<string>('DB_NAME'),
           synchronize: true,
+          // Connect the entity to the root connection
           entities: [User, Report]
         };
       }

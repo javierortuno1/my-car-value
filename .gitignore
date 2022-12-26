@@ -7,6 +7,10 @@ package-lock.json
 /dist
 /node_modules
 
+#DB
+db.sqlite
+test.sqlite
+
 # Logs
 logs
 *.log
