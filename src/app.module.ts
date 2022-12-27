@@ -49,13 +49,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   ],
 })
 export class AppModule {
+  constructor(private configService: ConfigService ) {}
+
   configure(consumer: MiddlewareConsumer) {
     // Middleware to be applied with a cookieSession
     // whenever we start out applicataion or the AppModule is called
     consumer
       .apply(
         cookieSession({
-            keys: ['qwertz']
+            keys: [this.configService.get('COOKIE_KEY')]
         })
      )
     .forRoutes('*');
