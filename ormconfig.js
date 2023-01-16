@@ -1,8 +1,12 @@
 var dbConfig = {
-    synchronize: false
+    synchronize: false,
+    migrations: ['migrations/*.js'],
+    cli: {
+        migrationsDir: 'migrations'
+    }
 };
 
-// The process is called by using 'npm run start:<script>' that will run an sprict 
+// The process is called by using 'npm run start:<script>' that will run an script
 // with potentially env variables. One of them is NODE_ENV, it will indicate to the
 // program or project in which environment it should be executed
 switch(process.env.NODE_ENV) {

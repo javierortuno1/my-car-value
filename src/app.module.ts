@@ -9,6 +9,7 @@ import { Report } from './reports/report.entity';
 import { APP_PIPE } from '@nestjs/core';
 import cookieSession = require('cookie-session');
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmConfigService } from './config/typeorm.config';
 const dbConfig = require('../ormconfig.js')
 
 @Module({
@@ -18,7 +19,10 @@ const dbConfig = require('../ormconfig.js')
         // Ensure NODE_ENV is set
         envFilePath: `.env.${process.env.NODE_ENV}`
     }),
-    TypeOrmModule.forRoot(dbConfig),
+    // TypeOrmModule.forRoot(dbConfig),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfigService
+    }),
     // ----- For using env variables
     // TypeOrmModule.forRootAsync({
     //   inject: [ConfigService],
