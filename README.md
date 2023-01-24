@@ -81,6 +81,15 @@ $ npm run typeorm migration:run
 
 [Stackoverflow resources - it was helpful when i reached the migration part](https://stackoverflow.com/questions/62821983/typeorm-no-migrations-pending-when-attempting-to-run-migrations-manually)
 [Stackoverflow resources - it was helpful knowing i needed to specify the data source file path](https://stackoverflow.com/questions/71625087/typeorm-migration-file-must-contain-a-typescript-javascript-code-and-export-a)
+
+## Deploymen on Heroku
+We are going to use the Heroku CLI to deploy our application.
+
+Please follow the instructions here https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up to set up the Heroku CLI on your machine.
+npm install -g heroku
+
+The next video will be making use of this CLI, so, set it up right away.
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
