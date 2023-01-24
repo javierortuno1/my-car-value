@@ -9,6 +9,8 @@ import { Report } from './reports/report.entity';
 import { APP_PIPE } from '@nestjs/core';
 import cookieSession = require('cookie-session');
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmConfigService } from './config/typeorm.config';
+const dbConfig = require('../ormconfig.js')
 
 @Module({
   imports: [
@@ -17,25 +19,32 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         // Ensure NODE_ENV is set
         envFilePath: `.env.${process.env.NODE_ENV}`
     }),
+    // TypeOrmModule.forRoot(dbConfig),
     TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        return {
-          type: 'sqlite',
-          database: config.get<string>('DB_NAME'),
-          synchronize: true,
-          // Connect the entity to the root connection
-          entities: [User, Report]
-        };
-      }
+      useClass: TypeOrmConfigService
     }),
+    // ----- For using env variables
+    // TypeOrmModule.forRootAsync({
+    //   inject: [ConfigService],
+    //   useFactory: (config: ConfigService) => {
+    //     return {
+    //       type: 'sqlite',
+    //       database: config.get<string>('DB_NAME'),
+    //       synchronize: true,
+    //       // Connect the entity to the root connection
+    //       entities: [User, Report]
+    //     };
+    //   }
+    // }),
+    // ---- For using only one kind of DB
     // TypeOrmModule.forRoot({
     //   type: 'sqlite',
     //   database: 'db.sqlite',
     //   entities: [User, Report],
     //   synchronize: true
     // }),
-   UsersModule, ReportsModule
+   UsersModule,
+   ReportsModule
   ],
   controllers: [AppController],
   providers: [
@@ -49,13 +58,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   ],
 })
 export class AppModule {
+  constructor(private configService: ConfigService ) {}
+
   configure(consumer: MiddlewareConsumer) {
     // Middleware to be applied with a cookieSession
     // whenever we start out applicataion or the AppModule is called
     consumer
       .apply(
         cookieSession({
-            keys: ['qwertz']
+            keys: [this.configService.get('COOKIE_KEY')]
         })
      )
     .forRoutes('*');

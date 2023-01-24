@@ -61,6 +61,26 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Migrations with TypeORM CLI
+<!-- Script in the package.json-->
+"typeorm": "cross-env NODE_ENV=development typeorm-ts-node-commonjs -d src/data-source.ts"
+
+```bash
+# generate migration
+$ npm run typeorm migration:generate src/migrations/initial-schema
+
+# run migration (TypeOrm cli will know where to look for migrations thanks to migrations: [..] property that we defined in our data-source.ts file)
+$ npm run typeorm migration:run
+```
+<!-- Reference and documentation -->
+[nestjs doumentation - where i got the idea of creating typeorm.config.ts and use forRootAsync](https://docs.nestjs.com/techniques/database#async-configuration)
+
+[TypeORM Documentation - where i knew about data source](https://typeorm.io/data-source)
+
+[TypeORM Documentation - where i knew more about migration](https://typeorm.io/migrations)
+
+[Stackoverflow resources - it was helpful when i reached the migration part](https://stackoverflow.com/questions/62821983/typeorm-no-migrations-pending-when-attempting-to-run-migrations-manually)
+[Stackoverflow resources - it was helpful knowing i needed to specify the data source file path](https://stackoverflow.com/questions/71625087/typeorm-migration-file-must-contain-a-typescript-javascript-code-and-export-a)
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
